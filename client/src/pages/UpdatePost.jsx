@@ -360,7 +360,7 @@ const UpdatePost = () => {
                                                             <span className="flex items-center bg-grey-lighter rounded rounded-r-none px-2 font-bold text-grey-darker text-xl">$</span>
                                                             <input
                                                                 id='price'
-                                                                type="number"
+                                                                type="text"
                                                                 name="price"
                                                                 className="bg-slate-100 p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
                                                                 {...register('price', { required: 'This feild is required*' })}

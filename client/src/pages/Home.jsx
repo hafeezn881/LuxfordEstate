@@ -86,7 +86,7 @@ const Home = () => {
                                     </svg>
                                 </span>
 
-                                <span className="text-sm font-medium transition-all  group-hover:me-4">
+                                <span className="text-sm font-medium transition-all  group-hover:me-4 bg-black">
                                     Let's Sell Now!
                                 </span>
                             </button>

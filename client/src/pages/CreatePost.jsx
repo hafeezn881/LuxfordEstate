@@ -34,30 +34,51 @@ const CreatePost = () => {
 
 
 
-
     const handleImageUpload = async () => {
-
-        if (imageFile.length > 0 && imageFile.length + formData.imgUrl.length < 7) {
-            setLoading(true)
+        if (imageFile.length > 0 && imageFile.length + formData.imgUrl.length <= 20) { // Fixed limit to 20
+            setLoading(true);
             const promises = [];
+    
             for (let i = 0; i < imageFile.length; i++) {
-                promises.push(uploadToFirebase(imageFile[i]))
-                Promise.all(promises).then((urls) => {
-                    setFormData({ ...formData, imgUrl: formData.imgUrl.concat(urls) })
-                    setLoading(false)
-                }).catch((error) => {
-                    setUploadError({ ...uploadError, isError: true, message: error })
-                    setLoading(false)
-                })
+                const file = imageFile[i];
+    
+                // Create an Image object to get dimensions
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+    
+                img.onload = () => {
+                    const width = img.width;
+                    const height = img.height;
+                    
+                    // Display the image size
+                    console.log(`Image ${i + 1}: ${width}x${height}`);
+    
+                    // Proceed with upload
+                    promises.push(uploadToFirebase(file));
+                    if (i === imageFile.length - 1) {
+                        Promise.all(promises)
+                            .then((urls) => {
+                                setFormData({ ...formData, imgUrl: formData.imgUrl.concat(urls) });
+                                setLoading(false);
+                            })
+                            .catch((error) => {
+                                setUploadError({ isError: true, message: error });
+                                setLoading(false);
+                            });
+                    }
+                };
+    
+                img.onerror = () => {
+                    console.error(`Failed to load image ${i + 1}`);
+                };
             }
+        } else {
+            setUploadError({ isError: true, message: 'Select file first (max:20)' });
+            setLoading(false);
         }
-        else {
-            setUploadError({ ...uploadError, isError: true, message: 'Select file first (max:6)' })
-            setLoading(false)
-        }
-
-    }
-
+    };
+    
+    
     const uploadToFirebase = (file) => {
         return new Promise((resolve, reject) => {
             const storage = getStorage(firebaseApp);
@@ -307,12 +328,12 @@ const CreatePost = () => {
                                         <div className=" mt-1">
                                             <div className="pricing_info flex flex-col">
                                                 <p className="mt-3  font-heading text-black">Regular Price </p>
-                                                <span className='text-sm font-content font-bold text-red-900'>($ /month)</span>
+                                                <span className='text-sm font-content font-bold text-red-900'>(₹ /month)</span>
                                                 <div className="flex flex-row mt-2 ">
-                                                    <span className="flex items-center bg-grey-lighter rounded rounded-r-none px-2 font-bold text-grey-darker text-xl">$</span>
+                                                    <span className="flex items-center bg-grey-lighter rounded rounded-r-none px-2 font-bold text-grey-darker text-xl">₹</span>
                                                     <input
                                                         id='price'
-                                                        type="number"
+                                                        type="text"
                                                         name="price"
                                                         className="bg-white p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
                                                         {...register('price', { required: 'This feild is required*' })}
@@ -325,12 +346,12 @@ const CreatePost = () => {
                                                 isOffer &&
                                                 <div className="pricing_info flex flex-col">
                                                     <p className="mt-3  font-heading text-black">Discount Price </p>
-                                                    <span className='text-sm font-content font-bold text-red-900'>($ /month)</span>
+                                                    <span className='text-sm font-content font-bold text-red-900'>(₹ /month)</span>
                                                     <div className="flex flex-row mt-2 ">
-                                                        <span className="flex items-center bg-grey-lighter rounded rounded-r-none px-2 font-bold text-grey-darker text-xl">$</span>
+                                                        <span className="flex items-center bg-grey-lighter rounded rounded-r-none px-2 font-bold text-grey-darker text-xl">₹</span>
                                                         <input
                                                             id='discountPrice'
-                                                            type="number"
+                                                            type="text"
                                                             name="discountPrice"
                                                             className="bg-slate-100 p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
                                                             {...register('discountPrice', {

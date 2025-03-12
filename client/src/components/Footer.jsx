@@ -12,14 +12,14 @@ const Footer = () => {
                         <Link to={'/home'}>
                             <h2 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-oswald font-bold flex items-center justify-start">
                                 <img className='w-8 h-8' src="https://img.icons8.com/sf-black-filled/64/313a67/home.png" alt="logo" />
-                                <span>Property Sale</span>
+                                <span>LuxfordEstate</span>
                             </h2>
                         </Link>
                     </div>
 
                     <ul className="mt-8 flex justify-start gap-6 sm:mt-0 sm:justify-end">
                         <li>
-                            <Link to={"https://www.facebook.com/biplobhasan.emon"} target='_blank'
+                            <Link to={"https://www.facebook.com/profile.php?id=61566559127971"} target='_blank'
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Facebook</span>
@@ -40,7 +40,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <Link to={"https://www.instagram.com/biplob_hasan_emon/"} target='_blank'
+                            <Link to={"https://www.instagram.com/luxfordestate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==/"} target='_blank'
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Instagram</span>
@@ -61,7 +61,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <Link
+                            <Link to={"https://x.com/muhammedhafeezk"} target='_blank'
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Twitter</span>
@@ -80,7 +80,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <Link to={"https://github.com/Emoncr"} target='_blank'
+                            <Link to={"https://github.com/hafeezn881"} target='_blank'
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">GitHub</span>
@@ -101,7 +101,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <Link
+                            <Link to={"https://dribbble.com/hafeez881"} target='_blank'
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Dribbble</span>
@@ -242,7 +242,7 @@ const Footer = () => {
                 </div>
 
                 <p className="text-xs text-brand-blue font-heading">
-                    &copy; 2023. PROPERTY SALE. All rights reserved.
+                    &copy; 2025. LUXFORD ESTATE. All rights reserved.
                 </p>
             </div>
         </footer>
