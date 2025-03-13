@@ -1,4 +1,3 @@
-
 import express from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
@@ -10,8 +9,6 @@ import postRouter from "./api/routes/post.route.js";
 import messageRouter from "./api/routes/message.route.js";
 import conversationRoute from "./api/routes/conversation.route.js";
 import notificatonRoute from "./api/routes/notification.route.js";
-
-import path from "path";
 import http from "http";
 import { Server } from "socket.io";
 
@@ -21,24 +18,13 @@ app.use(cookieParser());
 
 const expressServer = http.createServer(app);
 
-
 //Handling CORS origin
-if (process.env.NODE_ENV === "local") {
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-      credentials: true,
-    })
-  );
-} else {
-  app.use(
-    cors({
-      origin:"*",
-      credentials: true,
-      methods:["GET","POST","PUT","PATCH","DELETE"]
-    })
-  );
-}
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 const PORT = process.env.PORT || 3000;
 
@@ -62,24 +48,6 @@ app.use("/api/message", messageRouter);
 app.use("/api/conversation", conversationRoute);
 app.use("/api/notification", notificatonRoute);
 
-//============== Deployment==============//
-
-const __dirname = path.resolve();
-
-if (process.env.NODE_ENV === "production") {
-  const staticFilesPath = path.join(__dirname, "client", "dist");
-  app.use(express.static(staticFilesPath));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(staticFilesPath, "index.html"));
-  });
-} else {
-  app.get("/", (req, res) => {
-    res.send("api listing...");
-  });
-}
-
-//============== Deployment==============//
-
 // Handle middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -91,31 +59,16 @@ app.use((err, req, res, next) => {
   });
 });
 
-
-
-
-
-
 //----------------------------Handling Socket.io ------------------------------//
 
-//Handling CORS origin
 export const io = new Server(expressServer, {
   cors: {
     origin: [
-      "http://localhost:5173",
-      "https://property-sell.vercel.app",
-      "https://property-sell-gjz462ec1-emoncr.vercel.app/",
-      "http://localhost:3000",
-      "https://property-sell.onrender.com"
+      "http://localhost:5173"
     ],
     credentials: true,
   },
 });
-
-
-
-
-
 
 io.on("connection", (socket) => {
   console.log(`socket connected with ${socket.id}`);
@@ -134,14 +87,3 @@ io.on("connection", (socket) => {
     console.log(`user disconnected successfully ${socket.id}`);
   });
 });
-
-
-
-
-
-
-
-
-
-
-

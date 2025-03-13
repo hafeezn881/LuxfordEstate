@@ -1,5 +1,5 @@
 {
-  "name": "property-sell",
+  "name": "luxfordestate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "Biplob Hasan Emon",
+  "author": "muhammed hafeez",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
